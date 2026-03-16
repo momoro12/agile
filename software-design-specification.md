@@ -204,7 +204,7 @@ flowchart LR
 ```
 
 ## 8. Диаграмма потоков данных
-
+```mermaid
 flowchart TD
     A[Сетевые устройства / серверы / IDS / Firewall / Endpoint] --> B[Коллектор событий]
     B --> C[Парсер]
@@ -331,3 +331,4 @@ classDiagram
     Incident --> Alert
     Incident --> Report
     User --> Incident : investigates
+```
