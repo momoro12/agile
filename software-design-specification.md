@@ -201,3 +201,133 @@ flowchart LR
     UI --> INCIDENT
     UI --> REPORT
     UI --> STORE
+```
+
+## 8. Диаграмма потоков данных
+
+flowchart TD
+    A[Сетевые устройства / серверы / IDS / Firewall / Endpoint] --> B[Коллектор событий]
+    B --> C[Парсер]
+    C --> D[Нормализатор]
+    D --> E[(База сырых и нормализованных событий)]
+    E --> F[Движок корреляции]
+    E --> G[ML/AI-анализатор]
+    F --> H[Оценка риска]
+    G --> H
+    H --> I[Генератор инцидентов]
+    I --> J[(База инцидентов)]
+    J --> K[Панель аналитика]
+    J --> L[Сервис уведомлений]
+    J --> M[Отчеты и статистика]
+
+## 9. Диаграмма классов
+
+classDiagram
+    class User {
+        +UUID id
+        +string fullName
+        +string email
+        +string passwordHash
+        +string status
+        +login()
+        +logout()
+    }
+
+    class Role {
+        +UUID id
+        +string name
+        +string description
+    }
+
+    class EventSource {
+        +UUID id
+        +string name
+        +string type
+        +string ipAddress
+        +string status
+        +sendEvent()
+    }
+
+    class RawEvent {
+        +UUID id
+        +datetime timestamp
+        +string sourceFormat
+        +string payload
+    }
+
+    class NormalizedEvent {
+        +UUID id
+        +datetime timestamp
+        +string eventType
+        +string srcIp
+        +string dstIp
+        +string username
+        +int severity
+        +normalize()
+    }
+
+    class DetectionRule {
+        +UUID id
+        +string name
+        +string condition
+        +int priority
+        +evaluate()
+    }
+
+    class CorrelationEngine {
+        +correlateEvents()
+        +applyRules()
+        +calculateRisk()
+    }
+
+    class AIAnalyzer {
+        +detectAnomaly()
+        +classifyIncident()
+        +generateRecommendation()
+    }
+
+    class Incident {
+        +UUID id
+        +string title
+        +string description
+        +string status
+        +int severity
+        +datetime createdAt
+        +assignAnalyst()
+        +changeStatus()
+        +closeIncident()
+    }
+
+    class InvestigationNote {
+        +UUID id
+        +string text
+        +datetime createdAt
+        +addNote()
+    }
+
+    class Alert {
+        +UUID id
+        +string channel
+        +string message
+        +datetime sentAt
+        +send()
+    }
+
+    class Report {
+        +UUID id
+        +string type
+        +datetime generatedAt
+        +generate()
+    }
+
+    User --> Role
+    EventSource --> RawEvent
+    RawEvent --> NormalizedEvent
+    DetectionRule --> CorrelationEngine
+    NormalizedEvent --> CorrelationEngine
+    CorrelationEngine --> Incident
+    AIAnalyzer --> Incident
+    Incident --> InvestigationNote
+    Incident --> Alert
+    Incident --> Report
+    User --> Incident : investigates
