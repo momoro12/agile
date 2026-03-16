@@ -219,9 +219,10 @@ flowchart TD
     J --> K[Панель аналитика]
     J --> L[Сервис уведомлений]
     J --> M[Отчеты и статистика]
-
+```
 ## 9. Диаграмма классов
 
+```mermaid
 classDiagram
     class User {
         +UUID id
